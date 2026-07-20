@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"text/tabwriter"
 )
 
 type Todo struct {
@@ -30,48 +31,57 @@ func main() {
 		return
 	}
 
-	var todo int
+	var option int
 	var plan string
 	var todoList []Todo
 
+	res := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+
 	fmt.Println("Welcome To TODO-APP!")
 	fmt.Println("Do you want to?")
-	fmt.Println("1. View your recorded tasks and their status.")
-	fmt.Println("2. Add a new task")
-	fmt.Println("3. Exit")
+	for option != 3 {
 
-	fmt.Scanln(&todo)
+		fmt.Println("1. View your recorded tasks and their status.")
+		fmt.Println("2. Add a new task")
+		fmt.Println("3. Exit")
 
-	switch todo {
-	case 1:
-		if len(todoList) == 0 {
-			fmt.Println("You have nothing in your todo list,")
-			fmt.Println("2. add a new list or,")
-			fmt.Println("3. Exit?")
+		fmt.Scanln(&option)
+
+		switch option {
+		case 1:
+			if len(todoList) == 0 {
+				fmt.Println("You have nothing in your todo list, Try adding a new task!")
+
+			} else {
+				fmt.Fprintf(res, "ID\tTASK\tSTATUS")
+				fmt.Fprintln(res, "--\t----\t------")
+
+				for _, items := range todoList {
+
+					fmt.Fprintf(res, "%d\t%s\t%t\n", items.ID, items.Task, items.Status)
+				}
+			}
+		case 2:
+			fmt.Println("Note down a task")
+			// create a scanner that listens directly to standard input
+			scanner := bufio.NewScanner(os.Stdin)
+			// pause the CLI program and waits for the user to type something and press Enter
+			scanner.Scan()
+			// save the user input in a variable
+			plan = scanner.Text()
+			idcount++
+			todo := Todo{
+				ID:     idcount,
+				Task:   plan,
+				Status: false,
+			}
+			todoList = append(todoList, todo)
+			fmt.Println("Your task has been added!")
+		case 3:
+			return
+		default:
+			fmt.Println("Choose a valid option")
 		}
-	case 2:
-		fmt.Println("Note down a task")
-		// create a scanner that listens directly to standard input
-		scanner := bufio.NewScanner(os.Stdin)
-		// pause the CLI program and waits for the user to type something and press Enter
-		scanner.Scan()
-		// save the user input in a variable
-		plan += scanner.Text()
-		idcount++
-		todos := Todo{
-			ID:     idcount,
-			Task:   plan,
-			Status: false,
-		}
-		todoList = append(todoList, todos)
-		fmt.Println("Add another task?")
-		fmt.Scanln(&plan)
-
-
-	case 3:
-		return
-	default:
-		fmt.Println("Choose a valid option")
 	}
 
 }
