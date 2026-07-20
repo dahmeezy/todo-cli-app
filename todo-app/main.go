@@ -6,7 +6,15 @@ import (
 	"os"
 )
 
+type Todo struct {
+	ID     int
+	Task   string
+	Status bool
+}
+
 func main() {
+
+	idcount := 0
 
 	usage := "Usage: go run . todo-app"
 	fmt.Println(len(os.Args))
@@ -24,7 +32,7 @@ func main() {
 
 	var todo int
 	var plan string
-	var todoList string
+	var todoList []Todo
 
 	fmt.Println("Welcome To TODO-APP!")
 	fmt.Println("Do you want to?")
@@ -36,7 +44,7 @@ func main() {
 
 	switch todo {
 	case 1:
-		if todoList == "" {
+		if len(todoList) == 0 {
 			fmt.Println("You have nothing in your todo list,")
 			fmt.Println("2. add a new list or,")
 			fmt.Println("3. Exit?")
@@ -49,9 +57,21 @@ func main() {
 		scanner.Scan()
 		// save the user input in a variable
 		plan += scanner.Text()
+		idcount++
+		todos := Todo{
+			ID:     idcount,
+			Task:   plan,
+			Status: false,
+		}
+		todoList = append(todoList, todos)
+		fmt.Println("Add another task?")
+		fmt.Scanln(&plan)
+
+
 	case 3:
 		return
 	default:
 		fmt.Println("Choose a valid option")
 	}
+
 }
