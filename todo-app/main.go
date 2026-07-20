@@ -51,15 +51,18 @@ func main() {
 		case 1:
 			if len(todoList) == 0 {
 				fmt.Println("You have nothing in your todo list, Try adding a new task!")
+				
 
 			} else {
-				fmt.Fprintf(res, "ID\tTASK\tSTATUS")
+				fmt.Fprintf(res, "ID\tTASK\tSTATUS\n")
 				fmt.Fprintln(res, "--\t----\t------")
 
 				for _, items := range todoList {
 
 					fmt.Fprintf(res, "%d\t%s\t%t\n", items.ID, items.Task, items.Status)
 				}
+				res.Flush()
+				fmt.Println()
 			}
 		case 2:
 			fmt.Println("Note down a task")
@@ -77,10 +80,12 @@ func main() {
 			}
 			todoList = append(todoList, todo)
 			fmt.Println("Your task has been added!")
+			fmt.Println()
 		case 3:
 			return
 		default:
-			fmt.Println("Choose a valid option")
+			fmt.Println("Choose a valid option!")
+			fmt.Println()
 		}
 	}
 
