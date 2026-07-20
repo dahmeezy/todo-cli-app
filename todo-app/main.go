@@ -1,37 +1,54 @@
 package main
 
 import (
-	"database/sql"
-	"log"
-	"net/http"
+	"bufio"
+	"fmt"
 	"os"
 )
 
 func main() {
-	var err error
 
-	// open or create database
-	db, err = sql.Open("sqlite3", "./users.db")
+	usage := "Usage: go run . todo-app"
+	fmt.Println(len(os.Args))
+	fmt.Println(os.Args)
 
-	if err != nil {
-		log.Fatal(err)
+	if len(os.Args) < 2 || len(os.Args) > 2 {
+		fmt.Println(usage)
+		return
 	}
 
-	db.Exec(`CREATE TABLE IF NOT EXISTS todos(
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	task TEXT NOT NULL,
-	done INTEGER DEFAULT 0
-)`)
-
-	port := os.Getenv("PORT")
-
-	if port == "" {
-		port = "1990"
+	if os.Args[1] != "todo-app" {
+		fmt.Println(usage)
+		return
 	}
-	http.HandleFunc("/{$}", homeHandler)
-	http.HandleFunc("/newtask", taskHandler)
 
-	log.Println("Starting Server on port:" + port)
+	var todo int
+	var plan string
+	var todoList string
 
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	fmt.Println("Welcome To TODO-APP!")
+	fmt.Println("Do you want to?")
+	fmt.Println("1. View your recorded tasks and their status.")
+	fmt.Println("2. Add a new task")
+	fmt.Println("3. Exit")
+
+	fmt.Scanln(&todo)
+
+	switch todo {
+	case 1:
+		if todoList == "" {
+			fmt.Println("You have nothing in your todo list,")
+			fmt.Println("2. add a new list or,")
+			fmt.Println("3. Exit?")
+		}
+	case 2:
+		fmt.Println("Note down a task")
+		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Scan()
+		plan += scanner.Text()
+	case 3:
+		return
+	default:
+		fmt.Println("Choose a valid option")
+	}
 }
