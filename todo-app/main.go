@@ -43,8 +43,11 @@ func main() {
 		}
 	case 2:
 		fmt.Println("Note down a task")
+		// create a scanner that listens directly to standard input
 		scanner := bufio.NewScanner(os.Stdin)
+		// pause the CLI program and waits for the user to type something and press Enter
 		scanner.Scan()
+		// save the user input in a variable
 		plan += scanner.Text()
 	case 3:
 		return
