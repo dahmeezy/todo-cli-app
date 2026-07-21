@@ -42,6 +42,19 @@ func printMenu() {
 	fmt.Println("4. Exit")
 }
 
-func markTaskAsCompleted(){
-
+func markTaskAsCompleted(comp int, todoList []Todo) {
+	exists:=false
+	for i := range todoList {
+		item := &todoList[i]
+		if item.ID == comp {
+			exists = true
+			item.Status = "COMPLETED"
+			break
+		}
+	}
+	if !exists {
+		fmt.Println("There's no task with that ID!")
+	} else {
+		fmt.Println("Task status updated. Do you want to:")
+	}
 }

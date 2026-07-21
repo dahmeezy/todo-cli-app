@@ -61,22 +61,9 @@ func main() {
 
 		case 3:
 			fmt.Println("Enter Task ID:")
-			exists := false
 			fmt.Scanln(&comp)
-			for i := range todoList {
-				item := &todoList[i]
-				if item.ID == comp {
-					exists = true
-					item.Status = "COMPLETED"
 
-				}
-			}
-			if !exists {
-				fmt.Println("There's no task with that ID!")
-			} else {
-				fmt.Println("Task status updated. Do you want to:")
-			}
-
+			markTaskAsCompleted(comp, todoList)
 			fmt.Println()
 			printMenu()
 
