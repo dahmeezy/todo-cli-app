@@ -9,7 +9,7 @@ import (
 type Todo struct {
 	ID     int
 	Task   string
-	Status bool
+	Status string
 }
 
 func main() {
@@ -32,12 +32,12 @@ func main() {
 
 	var option int
 	var todoList []Todo
-
+	var comp int
 	result := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
 
 	fmt.Println("Welcome To TODO-APP!")
 	fmt.Println("Do you want to?")
-	for option != 3 {
+	for option != 4 {
 
 		printMenu()
 
@@ -58,7 +58,22 @@ func main() {
 			todoList = addNewTask(idcount, todoList)
 			fmt.Println("Your task has been added!")
 			fmt.Println()
+
 		case 3:
+			fmt.Println("Enter Task ID:")
+			fmt.Scanln(&comp)
+			for i := range todoList {
+				item := &todoList[i]
+				if item.ID == comp {
+					item.Status = "COMPLETED"
+				} 
+			}
+
+			fmt.Println("Task status updated. Do you want to:")
+			fmt.Println()
+			printMenu()
+
+		case 4:
 			return
 		default:
 			fmt.Println("Choose a valid option!")

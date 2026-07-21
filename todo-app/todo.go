@@ -18,7 +18,7 @@ func addNewTask(idcount int, todoList []Todo) []Todo {
 	todo := Todo{
 		ID:     idcount,
 		Task:   plan,
-		Status: false,
+		Status: "PENDING",
 	}
 	todoList = append(todoList, todo)
 	return todoList
@@ -30,7 +30,7 @@ func viewTask(todoList []Todo, result *tabwriter.Writer) {
 
 	for _, items := range todoList {
 
-		fmt.Fprintf(result, "%d\t%s\t%t\n", items.ID, items.Task, items.Status)
+		fmt.Fprintf(result, "%d\t%s\t%s\n", items.ID, items.Task, items.Status)
 	}
 	result.Flush()
 }
@@ -38,5 +38,10 @@ func viewTask(todoList []Todo, result *tabwriter.Writer) {
 func printMenu() {
 	fmt.Println("1. View your recorded tasks and their status.")
 	fmt.Println("2. Add a new task")
-	fmt.Println("3. Exit")
+	fmt.Println("3. Mark task as completed")
+	fmt.Println("4. Exit")
+}
+
+func markTaskAsCompleted(){
+
 }
