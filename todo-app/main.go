@@ -55,8 +55,8 @@ func main() {
 			}
 		case 2:
 			fmt.Println("Note down a task")
-			todoList = addNewTask(idcount, plan, todoList)
 			idcount++
+			todoList = addNewTask(idcount, plan, todoList)
 			fmt.Println("Your task has been added!")
 			fmt.Println()
 		case 3:
