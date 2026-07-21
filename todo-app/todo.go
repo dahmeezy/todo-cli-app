@@ -7,13 +7,13 @@ import (
 	"text/tabwriter"
 )
 
-func addNewTask(idcount int, plan string, todoList []Todo) []Todo {
+func addNewTask(idcount int, todoList []Todo) []Todo {
 	// create a scanner that listens directly to standard input
 	scanner := bufio.NewScanner(os.Stdin)
 	// pause the CLI program and waits for the user to type something and press Enter
 	scanner.Scan()
 	// save the user input in a variable
-	plan = scanner.Text()
+	plan := scanner.Text()
 	// idcount++
 	todo := Todo{
 		ID:     idcount,

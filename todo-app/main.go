@@ -31,7 +31,6 @@ func main() {
 	}
 
 	var option int
-	var plan string
 	var todoList []Todo
 
 	result := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
@@ -56,7 +55,7 @@ func main() {
 		case 2:
 			fmt.Println("Note down a task")
 			idcount++
-			todoList = addNewTask(idcount, plan, todoList)
+			todoList = addNewTask(idcount, todoList)
 			fmt.Println("Your task has been added!")
 			fmt.Println()
 		case 3:
