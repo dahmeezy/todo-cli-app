@@ -84,7 +84,7 @@ func deleteATask(del int, todoList []Todo) []Todo {
 }
 
 func saveTodo() error {
-	var todos Todo
+	var todos DATA
 	data, err := json.MarshalIndent(todos, "", " ")
 	if err != nil {
 		return err
