@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 	"text/tabwriter"
@@ -80,4 +81,14 @@ func deleteATask(del int, todoList []Todo) []Todo {
 
 	fmt.Println(res)
 	return todoList
+}
+
+func saveTodo() error {
+	var todos Todo
+	data, err := json.MarshalIndent(todos, "", " ")
+	if err != nil {
+		return err
+	}
+
+	return os.WriteFile(fileName, data, 0777)
 }

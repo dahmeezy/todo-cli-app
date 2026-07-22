@@ -6,6 +6,13 @@ import (
 	"text/tabwriter"
 )
 
+const fileName = "todos.json"
+
+type DATA struct {
+	ID     int    `json:"id"`
+	Task   string `json:"task"`
+	Status string `json:"status"`
+}
 type Todo struct {
 	ID     int
 	Task   string
@@ -71,8 +78,8 @@ func main() {
 		case 4:
 			fmt.Println("Enter task ID of task to be deleted:")
 			fmt.Scanln(&del)
-			todoList=deleteATask(del,todoList)
-			
+			todoList = deleteATask(del, todoList)
+
 		case 5:
 			return
 		default:
