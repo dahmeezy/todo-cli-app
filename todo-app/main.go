@@ -24,8 +24,6 @@ func main() {
 	idcount := 0
 
 	usage := "Usage: go run . todo-app"
-	fmt.Println(len(os.Args))
-	fmt.Println(os.Args)
 
 	if len(os.Args) < 2 || len(os.Args) > 2 {
 		fmt.Println(usage)
