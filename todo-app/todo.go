@@ -39,11 +39,12 @@ func printMenu() {
 	fmt.Println("1. View your recorded tasks and their status.")
 	fmt.Println("2. Add a new task")
 	fmt.Println("3. Mark task as completed")
-	fmt.Println("4. Exit")
+	fmt.Println("4. Delete a task")
+	fmt.Println("5. Exit")
 }
 
 func markTaskAsCompleted(comp int, todoList []Todo) {
-	exists:=false
+	exists := false
 	for i := range todoList {
 		item := &todoList[i]
 		if item.ID == comp {
@@ -57,4 +58,26 @@ func markTaskAsCompleted(comp int, todoList []Todo) {
 	} else {
 		fmt.Println("Task status updated. Do you want to:")
 	}
+}
+
+func deleteATask(del int, todoList []Todo) []Todo {
+	exists := false
+	var res string
+	for i := range todoList {
+		item := &todoList[i]
+		if item.ID == del {
+			todoList = append(todoList[:i], todoList[i+1:]...)
+			exists = true
+			break
+		}
+	}
+
+	if !exists {
+		res = "There's no task with that ID!"
+	} else {
+		res = fmt.Sprintf("Task %d deleted. Do you want to:", del)
+	}
+
+	fmt.Println(res)
+	return todoList
 }

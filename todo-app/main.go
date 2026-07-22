@@ -33,11 +33,12 @@ func main() {
 	var option int
 	var todoList []Todo
 	var comp int
+	var del int
 	result := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
 
 	fmt.Println("Welcome To TODO-APP!")
 	fmt.Println("Do you want to?")
-	for option != 4 {
+	for option != 5 {
 
 		printMenu()
 
@@ -60,7 +61,7 @@ func main() {
 			fmt.Println()
 
 		case 3:
-			fmt.Println("Enter Task ID:")
+			fmt.Println("Enter Task ID of completed task:")
 			fmt.Scanln(&comp)
 
 			markTaskAsCompleted(comp, todoList)
@@ -68,6 +69,11 @@ func main() {
 			printMenu()
 
 		case 4:
+			fmt.Println("Enter task ID of task to be deleted:")
+			fmt.Scanln(&del)
+			todoList=deleteATask(del,todoList)
+			
+		case 5:
 			return
 		default:
 			fmt.Println("Choose a valid option!")
