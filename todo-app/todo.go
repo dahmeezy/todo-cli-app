@@ -13,10 +13,10 @@ func loadTodo() ([]Todo, error) {
 	data, er := os.ReadFile("todos.json")
 	if er != nil {
 		if !errors.Is(er, os.ErrNotExist) {
-			return nil, er
-		} else {
 			return []Todo{}, nil
 		}
+		return nil, er
+
 	}
 	var todos []Todo
 	err := json.Unmarshal(data, &todos)
@@ -101,9 +101,8 @@ func deleteATask(del int, todoList []Todo) []Todo {
 	return todoList
 }
 
-func saveTodo() error {
-	var todos []Todo
-	data, err := json.MarshalIndent(todos, "", " ")
+func saveTodo(todoList []Todo) error {
+	data, err := json.MarshalIndent(todoList, "", " ")
 	if err != nil {
 		return err
 	}
