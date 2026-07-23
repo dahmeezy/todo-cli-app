@@ -3,10 +3,28 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"text/tabwriter"
 )
+
+func loadTodo() ([]Todo, error) {
+	data, er := os.ReadFile("todos.json")
+	if er != nil {
+		if !errors.Is(er, os.ErrNotExist) {
+			return nil, er
+		} else {
+			return []Todo{}, nil
+		}
+	}
+	var todos []Todo
+	err := json.Unmarshal(data, &todos)
+	if err != nil {
+		return nil, err
+	}
+	return todos, nil
+}
 
 func addNewTask(idcount int, todoList []Todo) []Todo {
 	// create a scanner that listens directly to standard input
@@ -84,7 +102,7 @@ func deleteATask(del int, todoList []Todo) []Todo {
 }
 
 func saveTodo() error {
-	var todos DATA
+	var todos []Todo
 	data, err := json.MarshalIndent(todos, "", " ")
 	if err != nil {
 		return err

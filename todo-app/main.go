@@ -8,15 +8,10 @@ import (
 
 const fileName = "todos.json"
 
-type DATA struct {
+type Todo struct {
 	ID     int    `json:"id"`
 	Task   string `json:"task"`
 	Status string `json:"status"`
-}
-type Todo struct {
-	ID     int
-	Task   string
-	Status string
 }
 
 func main() {
@@ -43,9 +38,8 @@ func main() {
 
 	fmt.Println("Welcome To TODO-APP!")
 	fmt.Println("Do you want to?")
+	printMenu()
 	for option != 5 {
-
-		printMenu()
 
 		fmt.Scanln(&option)
 
@@ -53,10 +47,11 @@ func main() {
 		case 1:
 			if len(todoList) == 0 {
 				fmt.Println("You have nothing in your todo list, Try adding a new task!")
-
+				printMenu()
 			} else {
 				viewTask(todoList, result)
 				fmt.Println()
+				printMenu()
 			}
 		case 2:
 			fmt.Println("Note down a task")
@@ -64,6 +59,8 @@ func main() {
 			todoList = addNewTask(idcount, todoList)
 			fmt.Println("Your task has been added!")
 			fmt.Println()
+			saveTodo()
+			printMenu()
 
 		case 3:
 			fmt.Println("Enter Task ID of completed task:")
@@ -71,17 +68,23 @@ func main() {
 
 			markTaskAsCompleted(comp, todoList)
 			fmt.Println()
+			saveTodo()
 			printMenu()
 
 		case 4:
 			fmt.Println("Enter task ID of task to be deleted:")
 			fmt.Scanln(&del)
 			todoList = deleteATask(del, todoList)
+			fmt.Println()
+			saveTodo()
+			printMenu()
 
 		case 5:
+			saveTodo()
 			return
 		default:
 			fmt.Println("Choose a valid option!")
+			printMenu()
 			fmt.Println()
 		}
 	}
