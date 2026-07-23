@@ -35,7 +35,7 @@ func main() {
 	var comp int
 	var del int
 	result := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-	loadTodo()
+	todoList,_=loadTodo()
 
 	fmt.Println("Welcome To TODO-APP!")
 	fmt.Println("Do you want to?")
